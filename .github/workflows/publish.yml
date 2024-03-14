@@ -6,6 +6,7 @@ on:
   push:
     branches:
       - 'main'       # Run the workflow when pushing to the main branch
+      - 'dev '       # Run the workflow when pushing to the dev  branch
   pull_request:
     branches:
       - '*'          # Run the workflow for all pull requests
