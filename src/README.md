@@ -13,6 +13,7 @@ ProDotNetZip is rip off the original code with limitation to NET standard subset
    by anyone on any Windows machine to build or extract ZIP files.
 
 Original library: https://github.com/DinoChiesa/DotNetZip
+
 SemVer updated library: https://github.com/haf/DotNetZip.Semverd
 
 Namespace was left untouched as `Ionic.Zip`.

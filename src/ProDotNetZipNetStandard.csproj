@@ -14,7 +14,7 @@
 		<PackageIcon>dotnetzip.png</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageProjectUrl>https://github.com/mihula/ProDotNetZip</PackageProjectUrl>
-		<PackageTags>Zip, Compress, Zlib, Bzip2, archive, net standard, net6, net8</PackageTags>
+		<PackageTags>zip, unzip, zlib, bzip2, compress, compression, archive, winzip, aes</PackageTags>
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 
 		<RepositoryUrl>https://github.com/mihula/ProDotNetZip.git</RepositoryUrl>
