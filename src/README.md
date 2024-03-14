@@ -11,9 +11,16 @@ library for handling ZIP files, and some associated tools.
 
  - The tools are .NET programs that rely on the library, and can be used
    by anyone on any Windows machine to build or extract ZIP files.
+   
+ - Detected vulnerabilities and outdated libraries are fixed
+ 
+ - Several Pull Requests from forked repository has been accepted
 
-Original library: https://github.com/DinoChiesa/DotNetZip
+
+This library: https://github.com/mihula/ProDotNetZip
 
 SemVer updated library: https://github.com/haf/DotNetZip.Semverd
+
+Original library: https://github.com/DinoChiesa/DotNetZip
 
 Namespace was left untouched as `Ionic.Zip`.
