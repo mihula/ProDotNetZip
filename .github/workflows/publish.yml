@@ -31,9 +31,9 @@ jobs:
       with:
         fetch-depth: 0 # Get all history to allow automatic versioning using MinVer
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
     - run: dotnet pack --configuration Release --output ${{ env.NuGetDirectory }}
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
         name: nuget
         if-no-files-found: error
@@ -64,9 +64,9 @@ jobs:
   run_test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
     - name: Run tests
       run: dotnet test --configuration Release
 
@@ -83,7 +83,7 @@ jobs:
         name: nuget
         path: ${{ env.NuGetDirectory }}
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
     - name: Publish NuGet package
       run: |
         foreach($file in (Get-ChildItem "${{ env.NuGetDirectory }}" -Recurse -Include *.nupkg)) {
