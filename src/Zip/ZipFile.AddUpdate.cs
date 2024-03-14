@@ -1600,6 +1600,13 @@ namespace Ionic.Zip
             return _InternalAddEntry(ze);
         }
 
+        /// <summary>
+        /// Adds a <see cref="ZipEntry"/> to the zip file.
+        /// </summary>
+        /// <param name="ze">The <see cref="ZipEntry"/> to add.</param>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown if the <paramref name="ze"/> already belongs to a zip file.
+        /// </exception>
         public void AddEntry(ZipEntry ze)
         {
             if (ze._container != null)
