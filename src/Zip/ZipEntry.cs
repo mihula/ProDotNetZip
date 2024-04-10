@@ -2428,7 +2428,17 @@ namespace Ionic.Zip
             return entry;
         }
 
-
+        /// <summary>
+        /// Creates a new <see cref="ZipEntry"/> that is a clone of the current entry,
+        /// suitable for adding to a different zip file.
+        /// </summary>
+        /// <param name="newZipFile">The target <see cref="ZipFile"/> where the entry will be added.</param>
+        /// <returns>A cloned <see cref="ZipEntry"/> for the new zip file.</returns>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown if the current entry was not loaded from a zip file, has been modified,
+        /// represents a directory, uses a different compression method than the target zip file,
+        /// or is from a multi-part zip.
+        /// </exception>
         public ZipEntry CloneForNewZipFile(ZipFile newZipFile)
         {
             if (this.Source != ZipEntrySource.ZipFile)
@@ -2456,6 +2466,7 @@ namespace Ionic.Zip
                 throw new InvalidOperationException("The entry you are trying to add is from a multi-part zip.");
             }
 
+            // Create a clone of the current entry.
             var clone = new ZipEntry
             {
                 __FileDataPosition = this.__FileDataPosition,
