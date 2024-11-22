@@ -34,12 +34,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="System.Security.Permissions" Version="8.0.0" />
-		<PackageReference Include="System.Text.Encoding.CodePages" Version="8.0.0" />
+		<PackageReference Include="System.Security.Permissions" Version="9.0.0" />
+		<PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
+		<PackageReference Include="DotNet.ReproducibleBuilds" Version="1.2.25">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 		</PackageReference>
