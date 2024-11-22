@@ -900,7 +900,10 @@ namespace Ionic.Zip
             // workitem 7926 - version made by OS can be zero (FAT) or 10
             // (NTFS)
             if ((_VersionMadeBy & 0xFF00) == 0x0a00 || (_VersionMadeBy & 0xFF00) == 0x0000)
-                File.SetAttributes(targetFileName, (FileAttributes) _ExternalFileAttrs);
+            {
+                var validAttrs = FileAttributeHelper.StripInvalidAttributes((FileAttributes)_ExternalFileAttrs);
+                File.SetAttributes(targetFileName, validAttrs);
+            }
         }
 
         void EnsurePassword(string password)
