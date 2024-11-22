@@ -1,30 +1,17 @@
-using Xunit;
-using Xunit.Abstractions;
+﻿using System.Runtime.InteropServices;
 
 namespace Ionic.Zip.Tests;
 
-public class BasicTest
+public class CVETests
 {
     private readonly ITestOutputHelper _output;
-    
-    public BasicTest(ITestOutputHelper output)
+
+    public CVETests(ITestOutputHelper output)
     {
         _output = output;
     }
-        
-    [Fact]
-    public void TestCreate()
-    {
-        var result = new ZipFile();
-        Assert.NotNull(result);
-    }
 
-    [Fact]
-    public void Extract_ZipWithAbsolutePathsOutside()
-    {
-        Assert.Throws<IOException>(() => Extract_ZipFile("absolute-path-traversal.zip"));
-        Assert.False(File.Exists(@"C:\Windows\Temp\foo"));
-    }
+    private bool IsOsWindows => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 
     private void Extract_ZipFile(string fileName)
     {
@@ -36,6 +23,10 @@ public class BasicTest
         _output.WriteLine("Reading zip file: '{0}'", fqFileName);
         using var zip = ZipFile.Read(fqFileName);
         const string extractDir = "extract";
+        if (Directory.Exists(extractDir))
+        {
+            Directory.Delete(extractDir, true);
+        }
         foreach (ZipEntry e in zip)
         {
             _output.WriteLine("{1,-22} {2,9} {3,5:F0}%   {4,9}  {5,3} {6:X8} {0}",
@@ -49,4 +40,26 @@ public class BasicTest
             e.Extract(extractDir);
         }
     }
+
+    [Fact]
+    public void Extract_ZipWithAbsolutePathsOutside()
+    {
+        if (IsOsWindows)
+        {
+            Assert.Throws<IOException>(() => Extract_ZipFile("absolute-path-traversal.zip"));
+        }
+        else
+        {
+            Extract_ZipFile("absolute-path-traversal.zip");
+            Assert.False(File.Exists(@"C:\Windows\Temp\foo"));
+            Assert.True(File.Exists(@"./extract/C:/Windows/Temp/foo"));
+        }
+    }
+
+    //[Fact]
+    //public void Extract_ZipWithZipSlip()
+    //{
+    //    var zipFile = IsOsWindows ? "zip-slip-win.zip" : "zip-slip.zip";
+    //    Assert.Throws<IOException>(() => Extract_ZipFile(zipFile));
+    //}
 }

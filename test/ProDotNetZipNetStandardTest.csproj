@@ -27,7 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Update="zips\absolute-path-traversal.zip">
+		<None Update="zips\*">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
