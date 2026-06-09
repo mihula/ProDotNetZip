@@ -56,6 +56,47 @@ public class CVETests
         }
     }
 
+    // This is a variation of the above test. Instead of a totally different path we try to extract
+    // to a sibling path of the extract root.
+    // It tests that extracting to ".../foo" doesn't let you escape that folder and extract to 
+    // ".../foo_not_allowed".
+    [Fact]
+    public void Extract_ZipWithAbsolutePaths_Sibling()
+    {
+        if (!IsOsWindows)
+        {
+            return;
+        }
+
+        var sourceDir = Directory.GetCurrentDirectory();
+        // The zip contains a single entry:
+        // /C:/ProgramData/ProDoNetZipTest/foo_not_allowed
+        var zipFileName = Path.Combine(sourceDir, "zips", "sibling.zip");
+
+        try
+        {
+            Assert.Throws<IOException>(() =>
+            {
+                using (var zip = ZipFile.Read(zipFileName))
+                {
+                    zip.ExtractAll(@"C:\ProgramData\ProDoNetZipTest\foo"); // extract to 'foo' but unfixed version extracts to 'foo_not_allowed'
+                }
+            });
+
+            Assert.False(Directory.Exists(@"C:\ProgramData\ProDoNetZipTest\foo_not_allowed"));
+        }
+        finally
+        {
+            try // Clean up
+            {
+                Directory.Delete(@"C:\ProgramData\ProDoNetZipTest", true);
+            }
+            catch( Exception ) 
+            {
+            }
+        }
+    }
+
     //[Fact]
     //public void Extract_ZipWithZipSlip()
     //{

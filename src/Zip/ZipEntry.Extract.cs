@@ -1397,7 +1397,7 @@ namespace Ionic.Zip
             // where the file or folder will be created.
             // https://gist.github.com/thomas-chauchefoin-bentley-systems/855218959116f870f08857cce2aec731
             var canonicalOutPath = Path.GetFullPath(outFileName);
-            var canonicalBaseDir = Path.GetFullPath(baseDir);
+            var canonicalBaseDir = GetFullPathWithDirectorySeparator(baseDir);
             if (!canonicalOutPath.StartsWith(canonicalBaseDir, StringComparison.OrdinalIgnoreCase))
             {
                 throw new IOException(string.Format("Extracting {0} would write to {1}, outside of {2}; rejecting.", outFileName, canonicalOutPath, canonicalBaseDir));
@@ -1429,6 +1429,20 @@ namespace Ionic.Zip
         bool IsDoneWithOutputToStream()
         {
             return IsDirectory || FileName.EndsWith("/");
+        }
+
+        /// <summary>
+        /// Calls Path.GetFullPath on the passed path and makes sure the result ends with the 
+        /// platform's directory separator.
+        /// </summary>
+        string GetFullPathWithDirectorySeparator(string path)
+        {
+            string fullPath = Path.GetFullPath(path); 
+            if (!fullPath.EndsWith($"{Path.DirectorySeparatorChar}"))
+            {
+                fullPath += Path.DirectorySeparatorChar;
+            }
+            return fullPath;
         }
 
         #endregion
